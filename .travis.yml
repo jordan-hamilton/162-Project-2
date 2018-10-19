@@ -1,0 +1,11 @@
+language: cpp
+compiler: gcc
+dist: trusty
+sudo: false
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+script: make
