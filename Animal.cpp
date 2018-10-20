@@ -13,7 +13,12 @@ Animal::Animal(int daysOld) {
 }
 
 Animal::~Animal() {
-  
+
+}
+
+
+void Animal::increaseAge() {
+  setAge(getAge() + 1);
 }
 
 

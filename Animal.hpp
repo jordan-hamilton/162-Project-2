@@ -17,6 +17,7 @@ public:
   Animal();
   Animal(int daysOld);
   ~Animal();
+  void increaseAge();
   int getAge();
   void setAge(int daysOld);
   int getBaseFoodCost();
