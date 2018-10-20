@@ -2,20 +2,18 @@
 #include <iostream>
 
 Animal::Animal() {
-  std::cout << "Hi Feline." << std::endl;
   setAge(1);
   setBaseFoodCost(10);
 }
 
 
 Animal::Animal(int daysOld) {
-  std::cout << "Hi Felicia." << std::endl;
   setAge(daysOld);
   setBaseFoodCost(10);
 }
 
 Animal::~Animal() {
-  std::cout << "Bye Felicia." << std::endl;
+  
 }
 
 
