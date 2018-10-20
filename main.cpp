@@ -8,6 +8,8 @@
 //#include "Zoo.hpp"
 #include "Animal.hpp"
 #include "Tiger.hpp"
+#include "Turtle.hpp"
+#include "Penguin.hpp"
 
 #include <iostream>
 
@@ -19,13 +21,21 @@ int main() {
 
   //Zoo newZoo;
   //newZoo.play();
-  Animal* tigger = new Tiger(4);
-  std::cout << "Cost for this pointer: " << tigger->getCost() << std::endl;
-  std::cout << "Base food cost for this pointer: " << tigger->getBaseFoodCost() << std::endl;
-  std::cout << "Age for this pointer: " << tigger->getAge() << std::endl;
-  std::cout << "Babies for this pointer: " << tigger->getNumberOfBabies() << std::endl;
-  std::cout << "Payoff for this pointer: " << tigger->getPayoff() << std::endl;
-  delete tigger;
+  Animal* tiger = new Tiger(4);
+  std::cout << "Cost for this Tiger: " << tiger->getCost() << std::endl;
+  std::cout << "Base food cost for this Tiger: " << tiger->getBaseFoodCost() << std::endl;
+  std::cout << "Age for this Tiger: " << tiger->getAge() << std::endl;
+  std::cout << "Babies for this Tiger: " << tiger->getNumberOfBabies() << std::endl;
+  std::cout << "Payoff for this Tiger: " << tiger->getPayoff() << std::endl;
+  Animal* turtle = new Turtle();
+  std::cout << "Cost for this Turtle: " << turtle->getCost() << std::endl;
+  std::cout << "Base food cost for this Turtle: " << turtle->getBaseFoodCost() << std::endl;
+  std::cout << "Age for this Turtle: " << turtle->getAge() << std::endl;
+  std::cout << "Babies for this Turtle: " << turtle->getNumberOfBabies() << std::endl;
+  std::cout << "Payoff for this Turtle: " << turtle->getPayoff() << std::endl;
+  delete tiger;
+  delete turtle;
+
 
   return 0;
 
