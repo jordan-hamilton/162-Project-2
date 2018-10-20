@@ -6,6 +6,7 @@
 #define ZOO_HPP
 
 #include "Animal.hpp"
+#include "Menu.hpp"
 #include "Penguin.hpp"
 #include "Tiger.hpp"
 #include "Turtle.hpp"
@@ -13,8 +14,16 @@
 class Zoo {
 
 private:
+  Menu buyAnimalMenu;
   int money, numPenguins, numTigers, numTurtles;
   Animal *penguins, *tigers, *turtles;
+  void initMenus();
+
+  void buyAnimal();
+  void nextTurn();
+  void randomEvent();
+
+  bool isAdult(Animal *zooAnimal);
   int getMoney();
   void setMoney(int dollars);
   int getPenguins();
@@ -23,7 +32,6 @@ private:
   void setTigers(int newTigers);
   int getTurtles();
   void setTurtles(int newTurtles);
-  bool isAdult(Animal *zooAnimal);
 
 public:
   Zoo();

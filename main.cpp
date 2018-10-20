@@ -5,7 +5,7 @@
 ** Description:
 *********************************************************************/
 
-//#include "Zoo.hpp"
+#include "Zoo.hpp"
 #include "Animal.hpp"
 #include "Tiger.hpp"
 #include "Turtle.hpp"
@@ -19,9 +19,9 @@
 ***********************************************************************************************/
 int main() {
 
-  //Zoo newZoo;
-  //newZoo.play();
-  Animal* tiger = new Tiger(4);
+  Zoo newZoo;
+  newZoo.play();
+  /*Animal* tiger = new Tiger(4);
   std::cout << "Cost for this Tiger: " << tiger->getCost() << std::endl;
   std::cout << "Base food cost for this Tiger: " << tiger->getBaseFoodCost() << std::endl;
   std::cout << "Age for this Tiger: " << tiger->getAge() << std::endl;
@@ -35,6 +35,7 @@ int main() {
   std::cout << "Payoff for this Turtle: " << turtle->getPayoff() << std::endl;
   delete tiger;
   delete turtle;
+  */
 
 
   return 0;
