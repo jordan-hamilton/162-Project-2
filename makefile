@@ -6,9 +6,9 @@ CXXFLAGS += -Wall
 CXXFLAGS += -pedantic-errors
 CXXFLAGS += -g
 
-OBJS = main.o Ant.o Board.o menu.o
-SRCS = main.cpp  Ant.cpp Board.cpp menu.cpp
-HEADERS = Ant.hpp Board.hpp menu.hpp
+OBJS = main.o Animal.o Menu.o Penguin.o Tiger.o Turtle.o Zoo.o
+SRCS = main.cpp  Animal.cpp Menu.cpp Penguin.cpp Tiger.cpp Turtle.cpp Zoo.cpp
+HEADERS = Animal.hpp Menu.hpp Penguin.hpp Tiger.hpp Turtle.hpp Zoo.hpp
 
 project2: $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o project2
