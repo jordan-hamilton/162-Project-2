@@ -13,16 +13,22 @@
 class Zoo {
 
 private:
-  int money;
-  Penguin * penguins;
-  Tiger* tigers;
-  Turtle* turtles;
-
+  int money, numPenguins, numTigers, numTurtles;
+  Animal *penguins, *tigers, *turtles;
+  int getMoney();
+  void setMoney(int dollars);
+  int getPenguins();
+  void setPenguins(int newPenguins);
+  int getTigers();
+  void setTigers(int newTigers);
+  int getTurtles();
+  void setTurtles(int newTurtles);
+  bool isAdult(Animal *zooAnimal);
 
 public:
   Zoo();
-  int getMoney();
-  void setMoney(int dollars);
+  ~Zoo();
+  void play();
 
 };
 
