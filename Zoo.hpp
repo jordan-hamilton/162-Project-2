@@ -11,27 +11,29 @@
 #include "Tiger.hpp"
 #include "Turtle.hpp"
 
-enum Event { Sickness, Attendance, Birth, Nothing };
+enum Event { sickness, attendance, birth, nothing };
+enum Purchase { penguin = 1, tiger, turtle, none };
 
 class Zoo {
 
 private:
-  Menu buyAnimalMenu;
+  Menu buyAnimalMenu, mainMenu;
   int money, numPenguins, numTigers, numTurtles,
       penguinArraySize, tigerArraySize, turtleArraySize;
   Animal *penguins, *tigers, *turtles;
   void initMenus();
-  Animal* doubleArray(Animal *array, int numOfAnimals, int arraySize);
+  Animal* checkArraySize(Animal *array, int numOfAnimals, int arraySize);
 
   void bonusDay();
-  void buyAnimal(Animal* animalToBuy, int qty);
+  void addAnimal(Purchase animalToAdd, int qty, int age);
   void feedAnimals();
   void increaseAge();
-  void nextTurn();
+  bool nextTurn();
+  void purchaseAdultPrompt();
   void randomEvent();
   void receivePayoff();
 
-  bool isAdult(Animal *zooAnimal);
+  bool isAdult(Animal &zooAnimal);
   int getMoney();
   void setMoney(int dollars);
   int getPenguins();

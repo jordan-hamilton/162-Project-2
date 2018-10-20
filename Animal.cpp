@@ -2,7 +2,7 @@
 #include <iostream>
 
 Animal::Animal() {
-  setAge(1);
+  setAge(-1);
   setBaseFoodCost(10);
 }
 
