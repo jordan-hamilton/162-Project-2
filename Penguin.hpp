@@ -5,7 +5,26 @@
 #ifndef PENGUIN_HPP
 #define PENGUIN_HPP
 
-class Penguin {
+#include "Animal.hpp"
+
+class Penguin : public Animal {
+
+private:
+
+public:
+  Penguin() : Animal() {
+      setBaseFoodCost(getBaseFoodCost());
+      setCost(1000);
+      setNumberOfBabies(5);
+      setPayoff(getCost() / 10);
+  }
+
+  Penguin(int daysOld) : Animal(daysOld) {
+      setBaseFoodCost(getBaseFoodCost());
+      setCost(1000);
+      setNumberOfBabies(5);
+      setPayoff(getCost() / 10);
+  }
 
 };
 
