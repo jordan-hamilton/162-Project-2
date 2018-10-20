@@ -17,7 +17,7 @@ void Menu::displayMenu() {
 }
 
 
-void Menu::addMenuItem(string menuItem) {
+void Menu::addMenuItem(const string &menuItem) {
   options.push_back(menuItem);
 }
 

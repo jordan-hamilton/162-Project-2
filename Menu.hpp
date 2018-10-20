@@ -17,7 +17,7 @@ class Menu {
     bool validateRange(const int &inputVal, const int &minVal, const int &maxVal);
 
   public:
-    void addMenuItem(std::string menuItem);
+    void addMenuItem(const std::string &menuItem);
     void displayMenu();
     int getIntChoiceFromPrompt(const std::string &prompt, const int &minVal, const int &maxVal, bool displayTheMenu);
     int getMenuChoices();
