@@ -82,6 +82,19 @@ void Zoo::play() {
 }
 
 
+/***********************************************************************************************
+** Description: Takes a constant reference to a Choice enumerated data type, a constant
+** reference to an int that represents the number of animals to add to the zoo, a constant
+** reference to the age of the animal(s) to add to the zoo, and a boolean indicating whether or
+** not the animals will be added to the zoo via a purchase. The qtyAdded variable is initialized
+** then a switch statement determines the type of animal being added. The number of animals of
+** the specified type is updated, then the animal's array is assigned to the return value of
+** validateArraySize, which returns the same pointer or a new dynamic array if the array size
+** needed to be doubled to accommodate the additional animals. The animal array is then looped
+** through to find the the proper quantity of animals with invalid ages, then sets ages to the
+** value provided. If the animal was a purchase, the cost of buying that animal is subtracted
+** from the player's money.
+***********************************************************************************************/
 void Zoo::addAnimal(const Choice &animalToAdd, const int &qty, const int &age, bool wasPurchased) {
 
 int qtyAdded = 0;
