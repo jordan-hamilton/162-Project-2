@@ -23,7 +23,6 @@ private:
   Animal *penguins, *tigers, *turtles;
 
   void addAnimal(const Choice &animalToAdd, const int &qty, const int &age, bool wasPurchased);
-
   void feedAnimals();
   void increaseAge();
   void initMenus();
