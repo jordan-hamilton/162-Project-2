@@ -2,13 +2,13 @@
 
 Animal::Animal() {
   setAge(-1);
-  setBaseFoodCost(10);
+  setBaseFoodCost(90);
 }
 
 
 Animal::Animal(int daysOld) {
   setAge(daysOld);
-  setBaseFoodCost(10);
+  setBaseFoodCost(90);
 }
 
 Animal::~Animal() {
