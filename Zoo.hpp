@@ -12,7 +12,7 @@
 #include "Turtle.hpp"
 
 enum Event { sickness, attendance, birth };
-enum Purchase { penguin = 1, tiger, turtle, none };
+enum Choice { penguin = 1, tiger, turtle, none };
 
 class Zoo {
 
@@ -21,19 +21,22 @@ private:
   int money, numPenguins, numTigers, numTurtles,
       penguinArraySize, tigerArraySize, turtleArraySize;
   Animal *penguins, *tigers, *turtles;
-  void initMenus();
-  Animal* validateArraySize(Animal *array, Purchase animal, int numOfAnimals, int arraySize);
 
-  void bonusDay();
-  void addAnimal(const Purchase &animalToAdd, const int &qty, const int &age);
+  void addAnimal(const Choice &animalToAdd, const int &qty, const int &age, bool wasPurchased);
+
   void feedAnimals();
   void increaseAge();
+  void initMenus();
+  bool isAdult(Animal &zooAnimal);
   bool nextTurn();
   void purchaseAdultPrompt();
+  void randomBirth();
+  void randomBonus();
   void randomEvent();
+  void randomSickness();
   void receivePayoff();
+  Animal* validateArraySize(Animal *array, Choice animal, int numOfAnimals, int arraySize);
 
-  bool isAdult(Animal &zooAnimal);
   int getMoney();
   void setMoney(int dollars);
   int getPenguins();
