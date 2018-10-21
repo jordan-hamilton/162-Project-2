@@ -7,6 +7,14 @@
 using std::cout;
 using std::endl;
 
+
+/*********************************************************************
+** Description: Constructor that initializes all data members,
+** setting the number of animals to 0, sets the array sizes to 10
+** initially and tracks the array sizes in penguinArraySize,
+** tigerArraySize, turtleArraySize data members. Player money starts
+** at 40000.
+*********************************************************************/
 Zoo::Zoo() {
   penguins = new Penguin[10];
   setPenguinArraySize(10);
@@ -25,13 +33,26 @@ Zoo::Zoo() {
 }
 
 
+/*********************************************************************
+** Description: Destructor used to delete all 3 dynamic arrays.
+*********************************************************************/
 Zoo::~Zoo() {
   delete [] penguins;
   delete [] tigers;
   delete [] turtles;
 }
 
-
+/***********************************************************************************************
+** Description: Initializes the starting day of the game to day 1, and initializes a random
+** generator seed and sets the random generator seed for random events in the game.
+** The user's starting money is output to the screen, then they are prompted to purchase 1 or 2
+** animals of each type to the game via getIntChoiceFromPrompt menu function. The selected
+** number of animals are added to their respective arrays with the addAnimal function.
+** Then, a do-while increments the day counter, outputs the day and player's money total, as
+** long as the player's money is greater than 0 and the player has selected to continue the game
+** in the nextTurn function. If the game ends because the player is out of money, a message is
+** output to the screen.
+***********************************************************************************************/
 void Zoo::play() {
 
   int day = 1;
@@ -233,6 +254,13 @@ bool Zoo::isAdult(Animal &zooAnimal) {
 }
 
 
+/***********************************************************************************************
+** Description: Calls functions for each turn to increase the age of all valid animals, feed
+** and subtract their food costs, trigger a random event, add the payoff for each animal
+** to the players money, then ask the user if they'd like to purchase an additional adult
+** animal. Then, the main menu is displayed, prompting the user to continue playing or quit the
+** game. Continuing to play makes this fuction return true, and quitting returns false.
+***********************************************************************************************/
 bool Zoo::nextTurn() {
 
   increaseAge();
@@ -254,7 +282,7 @@ bool Zoo::nextTurn() {
 /***********************************************************************************************
 ** Description: Prompts the user to purchase an animal or skip their turn and not purchase an
 ** adult animal. If the user chooses to buy an animal, the addAnimal function is called in the
-** switch statement, specifying a purchase of one of the selected animal that is 3 days old.
+** switch statement, completing the purchase of one of the selected animal that is 3 days old.
 ***********************************************************************************************/
 void Zoo::purchaseAdultPrompt() {
 
@@ -279,8 +307,9 @@ void Zoo::purchaseAdultPrompt() {
 ** type of animal will have babies during this random event. Depending on the value in the
 ** pregnantAnimal variable, the proper array is looped through, calling the isAdult function
 ** until the entire array is looped through or an adult animal is found. If one is found,
-** the number of babies associated with that derived class are added to the array using the
-** addAnimal function. If no adults are found, no babies are born during this turn.
+** the number of babies associated with the derived class are added to the array using the
+** addAnimal function. If no adults are found of the random animal, no babies are born during
+** this turn.
 ***********************************************************************************************/
 void Zoo::randomBirth() {
 
@@ -367,6 +396,12 @@ void Zoo::randomBonus() {
 }
 
 
+/***********************************************************************************************
+** Description: Assigns a random number between 0 and 3 to event to determine which random event
+** should occur during a turn. The switch statement calls the function corresponding to the
+** random event: randomSickness, randomBonus, randomBirth. The default case, when event is not
+** an integer between 0 and 2, handles days when no random event occurs.
+***********************************************************************************************/
 void Zoo::randomEvent() {
 
   int event = rand() % 4;
@@ -439,6 +474,11 @@ void Zoo::randomSickness() {
 }
 
 
+/***********************************************************************************************
+** Description: Loops through each array and calls the Animal object's getAge function
+** to verify the age of the animal at an index is a valid value (0 or older). If the age is a
+** valid value, then the animal's payoff is added to the player's money total.
+***********************************************************************************************/
 void Zoo::receivePayoff() {
 
   for (int i = 0; i < getPenguinArraySize(); i++) {
@@ -468,6 +508,19 @@ void Zoo::receivePayoff() {
 }
 
 
+/***********************************************************************************************
+** Description: Takes a pointer to an array of animal objects, an enum corresponding to a type
+** of animal, an integer representing a number of animals and an integer representing the size
+** of an array. If the pointer to the array is a valid address, the function compares the
+** number of valid animals in the zoo with the size of the array. If there are more animals
+** than there are elements in the array, a new dynamic array is created with the correct type
+** of animal based on the enum passed to the function. The new array is created with twice the
+** number of elements specified in the arraySize parameter, then the function to update the
+** correspoiding array size data member is called. Finally, the elements in the passed array
+** are copied to the new array, then the memory is deallocated and the new pointer is returned.
+** If there are fewer animals than there are elements in the array, the original pointer is
+** returned instead.
+***********************************************************************************************/
 Animal* Zoo::validateArraySize(Animal *array, Choice animal, int numOfAnimals, int arraySize) {
 
   if (array) {
@@ -510,71 +563,113 @@ Animal* Zoo::validateArraySize(Animal *array, Choice animal, int numOfAnimals, i
 }
 
 
-
+/***********************************************************************************************
+** Description: Returns an integer with the player's current money to spend in the zoo.
+***********************************************************************************************/
 int Zoo::getMoney() {
   return money;
 }
 
 
+/***********************************************************************************************
+** Description: Takes an integer to set the player's current money.
+***********************************************************************************************/
 void Zoo::setMoney(int dollars) {
   money = dollars;
 }
 
 
+/***********************************************************************************************
+** Description: Returns an integer with the number of valid penguins in the zoo.
+***********************************************************************************************/
 int Zoo::getPenguins() {
   return numPenguins;
 }
 
 
+/***********************************************************************************************
+** Description: Takes an integer to set the number of valid penguins in the zoo.
+***********************************************************************************************/
 void Zoo::setPenguins(int newPenguins) {
   numPenguins = newPenguins;
 }
 
 
+/***********************************************************************************************
+** Description: Returns an integer with the number of valid tigers in the zoo.
+***********************************************************************************************/
 int Zoo::getTigers() {
   return numTigers;
 }
 
 
+/***********************************************************************************************
+** Description: Takes an integer to set the number of valid tigers in the zoo.
+***********************************************************************************************/
 void Zoo::setTigers(int newTigers) {
   numTigers = newTigers;
 }
 
 
+/***********************************************************************************************
+** Description: Returns an integer with the number of valid turtles in the zoo.
+***********************************************************************************************/
 int Zoo::getTurtles() {
   return numTurtles;
 }
 
+
+/***********************************************************************************************
+** Description: Takes an integer to set the number of valid turtles in the zoo.
+***********************************************************************************************/
 void Zoo::setTurtles(int newTurtles) {
   numTurtles = newTurtles;
 }
 
 
+/***********************************************************************************************
+** Description: Returns an integer with the size of the penguin array.
+***********************************************************************************************/
 int Zoo::getPenguinArraySize() {
   return penguinArraySize;
 }
 
 
+/***********************************************************************************************
+** Description: Takes an integer to set the size of the penguin array.
+***********************************************************************************************/
 void Zoo::setPenguinArraySize(int newArraySize) {
   penguinArraySize = newArraySize;
 }
 
 
+/***********************************************************************************************
+** Description: Returns an integer with the size of the tiger array.
+***********************************************************************************************/
 int Zoo::getTigerArraySize() {
   return tigerArraySize;
 }
 
 
+/***********************************************************************************************
+** Description: Takes an integer to set the size of the tiger array.
+***********************************************************************************************/
 void Zoo::setTigerArraySize(int newArraySize) {
   tigerArraySize = newArraySize;
 }
 
 
+/***********************************************************************************************
+** Description: Returns an integer with the size of the turtle array.
+***********************************************************************************************/
 int Zoo::getTurtleArraySize() {
   return turtleArraySize;
 }
 
 
+/***********************************************************************************************
+** Description: Takes an integer to set the size of the turtle array.
+***********************************************************************************************/
 void Zoo::setTurtleArraySize(int newArraySize) {
   turtleArraySize = newArraySize;
 }
