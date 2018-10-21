@@ -1,5 +1,4 @@
 #include "Animal.hpp"
-#include <iostream>
 
 Animal::Animal() {
   setAge(-1);

@@ -38,21 +38,23 @@ void Zoo::play() {
   unsigned seed = time(0);
   srand(seed);
 
-  cout << "Welcome to Zoo Tycoon!" << endl;
-  cout << "You have $" << getMoney() << " to populate your zoo with animals." << endl;
+  cout << endl << "Welcome to Zoo Tycoon!" << endl;
+  cout << "You have $" << getMoney() << " to populate your zoo with animals." << endl << endl;
 
   addAnimal(penguin, buyAnimalMenu.getIntChoiceFromPrompt("How many penguins would you like to start?", 1, 2, false), 1);
   addAnimal(tiger, buyAnimalMenu.getIntChoiceFromPrompt("How many tigers would you like to start?", 1, 2, false), 1);
   addAnimal(turtle, buyAnimalMenu.getIntChoiceFromPrompt("How many turtles would you like to start?", 1, 2, false), 1);
 
   do {
+
     cout << endl << "Day " << day << ":" << endl;
+    cout << "Balance: $" << getMoney() << endl;
     day++;
-    // displayStats?
+
   } while(getMoney() > 0 && nextTurn());
 
   if (getMoney() <= 0) {
-    cout << "You ran out of money!" << endl;
+    cout << endl << "You ran out of money!" << endl;
     cout << "Thanks for playing!" << endl;
   }
 
@@ -76,14 +78,34 @@ void Zoo::initMenus() {
 
 }
 
-Animal* Zoo::checkArraySize(Animal *array, int numOfAnimals, int arraySize) {
+Animal* Zoo::validateArraySize(Animal *array, Purchase animal, int numOfAnimals, int arraySize) {
+
   if (array) {
 
     if (numOfAnimals >= arraySize) {
 
-      Animal *newArray = new Animal[arraySize * 2];
+      Animal *newArray = nullptr;
 
-      for (int i = 0; i < numOfAnimals; i++) {
+      switch(animal) {
+
+        case penguin : newArray = new Penguin[arraySize * 2];
+                       setPenguinArraySize(arraySize * 2);
+                       break;
+
+        case tiger   : newArray = new Tiger[arraySize * 2];
+                       setTigerArraySize(arraySize * 2);
+                       break;
+
+        case turtle  : newArray = new Turtle[arraySize * 2];
+                       setTurtleArraySize(arraySize * 2);
+
+                       break;
+
+        default: {}
+
+      }
+
+      for (int i = 0; i < arraySize; i++) {
         newArray[i] = array[i];
       }
 
@@ -100,72 +122,97 @@ Animal* Zoo::checkArraySize(Animal *array, int numOfAnimals, int arraySize) {
 
 
 void Zoo::bonusDay() {
-  cout << "It's a holiday!" << endl;
 
   int bonus = rand() % 251 + 250;
-  cout << "Your bonus is $" << bonus << " per tiger for the day." << endl;
-  cout << "Your balance was $" << getMoney() << endl;
   setMoney(getMoney() + numTigers * bonus);
 
-  cout << "It's now $" << getMoney() << endl;
 }
 
 
-void Zoo::addAnimal(Purchase animalToAdd, int qty, int age) {
+void Zoo::addAnimal(const Purchase &animalToAdd, const int &qty, const int &age) {
 
-  int loopCounter = 0;
+int loopCounter = 0;
 
   switch (animalToAdd) {
 
     case penguin    : setPenguins(getPenguins() + qty);
-                      checkArraySize(penguins, getPenguins(), getPenguinArraySize());
-                      do {
+                      penguins = validateArraySize(penguins, penguin, getPenguins(), getPenguinArraySize());
 
-                        loopCounter++;
-                      } while(loopCounter < qty);
+                      for (int i = 0; (i < getPenguinArraySize() && loopCounter < qty); i++) {
+                        cout << "Checking the age of penguin " << i << endl;
+                        if (penguins[i].getAge() < 0) {
+                          cout << "This penguin's age is " << penguins[i].getAge() << endl;
+                          penguins[i].setAge(age);
+                          cout << "We've updated the age to " << penguins[i].getAge() << endl;
+                          setMoney(getMoney() - penguins[i].getCost());
+                          loopCounter++;
+                        }
+
+                      }
+                      cout << "We added " << loopCounter << " penguins to the zoo." << endl;
                       break;
+
     case tiger      : setTigers(getTigers() + qty);
-                      checkArraySize(tigers, getTigers(), getTigerArraySize());
+                      tigers = validateArraySize(tigers, tiger, getTigers(), getTigerArraySize());
+
+                      for (int i = 0; (i < getTigerArraySize() && loopCounter < qty); i++) {
+                        cout << "Checking the age of tiger " << i << endl;
+                        if (tigers[i].getAge() < 0) {
+                          cout << "This tiger's age is " << tigers[i].getAge() << endl;
+                          tigers[i].setAge(age);
+                          cout << "We've updated the age to " << tigers[i].getAge() << endl;
+                          setMoney(getMoney() - tigers[i].getCost());
+                          loopCounter++;
+                        }
+
+                      }
+                      cout << "We added " << loopCounter << " tigers to the zoo." << endl;
                       break;
+
     case turtle     : setTurtles(getTurtles() + qty);
-                      checkArraySize(turtles, getTurtles(), getTurtleArraySize());
+                      turtles = validateArraySize(turtles, turtle, getTurtles(), getTurtleArraySize());
+
+                      for (int i = 0; (i < getTurtleArraySize() && loopCounter < qty); i++) {
+                        cout << "Checking the age of turtle " << i << endl;
+                        if (turtles[i].getAge() < 0) {
+                          cout << "This turtle's age is " << turtles[i].getAge() << endl;
+                          turtles[i].setAge(age);
+                          cout << "We've updated the age to " << turtles[i].getAge() << endl;
+                          setMoney(getMoney() - turtles[i].getCost());
+                          loopCounter++;
+                        }
+
+                      }
+                      cout << "We added " << loopCounter << " turtles to the zoo." << endl;
                       break;
-    case none       : cout << "Nothing interesting happened today." << endl;
+
+    default         : {}
 
   }
-  //if (getMoney() > animalToAdd.getCost()) {
-  //    setMoney(getMoney() - animalToAdd.getCost());
-      //Update number of correct type of animal, add to array
-  //}
 
 }
 
 
 void Zoo::feedAnimals() {
-  cout << "Before feeding the penguins, you had $" << getMoney() << endl;
+
   for (int i = 0; i < numPenguins; i++) {
     setMoney(getMoney() - penguins[i].getBaseFoodCost());
   }
-  cout << "After feeding the penguins, you now have $" << getMoney() << endl;
 
   for (int i = 0; i < numTigers; i++) {
     setMoney(getMoney() - tigers[i].getBaseFoodCost());
   }
 
-  cout << "After feeding the tigers, you now have $" << getMoney() << endl;
-
   for (int i = 0; i < numTurtles; i++) {
     setMoney(getMoney() - turtles[i].getBaseFoodCost());
   }
-
-  cout << "After feeding the turtles, you now have $" << getMoney() << endl;
 
 }
 
 
 void Zoo::increaseAge() {
 
-  for (int i = 0; i < penguinArraySize; i++) {
+  for (int i = 0; i < getPenguinArraySize(); i++) {
 
     if (penguins[i].getAge() >= 0) {
       penguins[i].increaseAge();
@@ -174,7 +221,7 @@ void Zoo::increaseAge() {
 
   }
 
-  for (int i = 0; i < tigerArraySize; i++) {
+  for (int i = 0; i < getTigerArraySize(); i++) {
 
     if (tigers[i].getAge() >= 0) {
       tigers[i].increaseAge();
@@ -183,7 +230,7 @@ void Zoo::increaseAge() {
 
   }
 
-  for (int i = 0; i < turtleArraySize; i++) {
+  for (int i = 0; i < getTurtleArraySize(); i++) {
 
     if (turtles[i].getAge() >= 0) {
       turtles[i].increaseAge();
@@ -192,12 +239,11 @@ void Zoo::increaseAge() {
 
   }
 
-  cout << "They grow up so fast!" << endl;
 }
 
 
 bool Zoo::nextTurn() {
-  //A day will follow this flow: Age -> Feed -> Random Event -> Payoff -> Purchase Adult
+
   increaseAge();
   feedAnimals();
   randomEvent();
@@ -207,7 +253,7 @@ bool Zoo::nextTurn() {
   if (mainMenu.getIntChoiceFromPrompt("\nWhat would you like to do now?", 1, mainMenu.getMenuChoices(), true) == 1) {
     return true;
   } else {
-    cout << "Thanks for playing!" << endl;
+    cout << endl << "Thanks for playing!" << endl << endl;
     return false;
   }
 
@@ -216,22 +262,20 @@ bool Zoo::nextTurn() {
 
 void Zoo::purchaseAdultPrompt() {
 
-  Purchase animalToAdd = static_cast<Purchase>(buyAnimalMenu.getIntChoiceFromPrompt("Select an option below to purchase a new animal today:", 1, buyAnimalMenu.getMenuChoices(), true));
+  Purchase animalToAdd = static_cast<Purchase>(buyAnimalMenu.getIntChoiceFromPrompt("Select an option below to purchase an adult animal today:", 1, buyAnimalMenu.getMenuChoices(), true));
 
   switch (animalToAdd) {
 
-    case penguin    : cout << "Someone's buying a penguin!" << endl;
-                      addAnimal(penguin, 1, 3);
+    case penguin    : addAnimal(penguin, 1, 3);
                       break;
-    case tiger      : cout << "Someone's buying a tiger!" << endl;
-                      addAnimal(tiger, 1, 3);
+    case tiger      : addAnimal(tiger, 1, 3);
                       break;
-    case turtle     : cout << "Someone's buying a turtle!" << endl;
-                      addAnimal(turtle, 1, 3);
+    case turtle     : addAnimal(turtle, 1, 3);
                       break;
-    case none       : cout << "We didn't want more animals caged up anyway." << endl;
+    default         : {}
 
   }
+
 }
 
 
@@ -247,7 +291,7 @@ void Zoo::randomEvent() {
                       break;
     case birth      : cout << "Someone has baby fever!" << endl;
                       break;
-    case nothing    : cout << "Nothing interesting happened today." << endl;
+    default         : {}
 
   }
 
@@ -257,26 +301,17 @@ void Zoo::randomEvent() {
 
 void Zoo::receivePayoff() {
 
-  cout << "Your balance was $" << getMoney() << endl;
-
-  cout << "It's now $" << getMoney() << endl;
   for (int i = 0; i < numPenguins; i++) {
     setMoney(getMoney() + penguins[i].getPayoff());
   }
-
-  cout << "With the penguin payoff, your balance is now $" << getMoney() << endl;
 
   for (int i = 0; i < numTigers; i++) {
     setMoney(getMoney() + tigers[i].getPayoff());
   }
 
-  cout << "With the tiger payoff, your balance is now $" << getMoney() << endl;
-
   for (int i = 0; i < numTurtles; i++) {
     setMoney(getMoney() + turtles[i].getPayoff());
   }
-
-  cout << "With the turtle payoff, your balance is now $" << getMoney() << endl;
 
 }
 

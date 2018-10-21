@@ -11,7 +11,7 @@
 #include "Tiger.hpp"
 #include "Turtle.hpp"
 
-enum Event { sickness, attendance, birth, nothing };
+enum Event { sickness, attendance, birth };
 enum Purchase { penguin = 1, tiger, turtle, none };
 
 class Zoo {
@@ -22,10 +22,10 @@ private:
       penguinArraySize, tigerArraySize, turtleArraySize;
   Animal *penguins, *tigers, *turtles;
   void initMenus();
-  Animal* checkArraySize(Animal *array, int numOfAnimals, int arraySize);
+  Animal* validateArraySize(Animal *array, Purchase animal, int numOfAnimals, int arraySize);
 
   void bonusDay();
-  void addAnimal(Purchase animalToAdd, int qty, int age);
+  void addAnimal(const Purchase &animalToAdd, const int &qty, const int &age);
   void feedAnimals();
   void increaseAge();
   bool nextTurn();
